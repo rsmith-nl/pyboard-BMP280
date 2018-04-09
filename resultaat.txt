@@ -68,3 +68,43 @@ DEBUG: self._press =  100070.5
 (23.29648, 100070.5)
 
 Waarschijnlijk heeft de sensor een burn-in tijd nodig?
+
+>>> s.read()
+DEBUG: UT =  521600.0
+DEBUG: var1 =  117812.5
+DEBUG: var2 =  16.57058
+DEBUG: t_fine =  117829
+DEBUG: self._temp =  23.01348
+DEBUG: UP =  346832.0
+DEBUG: var1 =  -5085.5
+DEBUG: var2 =  -5524.786
+DEBUG: var2 =  1682861.0
+DEBUG: var2 =  4.328272e+08
+DEBUG: var1 =  101.6626
+DEBUG: var1 =  37223.13
+DEBUG: p =  701744.0
+DEBUG: p =  100084.5
+DEBUG: var1 =  27986.92
+DEBUG: var2 =  -44593.31
+DEBUG: self._press =  100015.3
+(23.01348, 100015.3)
+>>> 
+>>> s.read()
+DEBUG: UT =  521525.0
+DEBUG: var1 =  117695.4
+DEBUG: var2 =  16.53766
+DEBUG: t_fine =  117711
+DEBUG: self._temp =  22.99043
+DEBUG: UP =  346869.0
+DEBUG: var1 =  -5144.5
+DEBUG: var2 =  -5653.722
+DEBUG: var2 =  1702320.0
+DEBUG: var2 =  4.328321e+08
+DEBUG: var1 =  102.8453
+DEBUG: var1 =  37224.46
+DEBUG: p =  701707.0
+DEBUG: p =  100074.5
+DEBUG: var1 =  27981.32
+DEBUG: var2 =  -44588.86
+DEBUG: self._press =  100005.3
+(22.99043, 100005.3)
