@@ -4,7 +4,7 @@
 #
 # Author: R.F. Smith <rsmith@xs4all.nl>
 # Created: 2018-04-08 22:38:40 +0200
-# Last modified: 2018-04-09 20:49:53 +0200
+# Last modified: 2018-04-09 22:39:08 +0200
 
 from utime import sleep_ms
 from ustruct import unpack
@@ -71,44 +71,44 @@ class BMP280_I2C:
         # Temperature
         tempdata = self._i2c.mem_read(3, self._address, REG_TEMP)
         UT = float((tempdata[0] << 16 | tempdata[1] << 8 | tempdata[2]) >> 4)
-        print("DEBUG: UT = ", UT)
+        # print("DEBUG: UT = ", UT)
         var1 = (UT / 16384.0 - self._tempcal[0] / 1024.0) * self._tempcal[1]
-        print("DEBUG: var1 = ", var1)
+        # print("DEBUG: var1 = ", var1)
         var2 = ((UT / 131072.0 - self._tempcal[0] / 8192.0) * (
             UT / 131072.0 - self._tempcal[0] / 8192.0)) * self._tempcal[2]
-        print("DEBUG: var2 = ", var2)
+        # print("DEBUG: var2 = ", var2)
         t_fine = int(var1+var2)
-        print("DEBUG: t_fine = ", t_fine)
+        # print("DEBUG: t_fine = ", t_fine)
         self._temp = t_fine/5120.0
-        print("DEBUG: self._temp = ", self._temp)
+        # print("DEBUG: self._temp = ", self._temp)
         # Pressure
         pressdata = self._i2c.mem_read(3, self._address, REG_PRESS)
         UP = float((pressdata[0] << 16 | pressdata[1] << 8 | tempdata[2]) >> 4)
-        print("DEBUG: UP = ", UP)
+        # print("DEBUG: UP = ", UP)
         var1 = t_fine/2.0 - 64000.0
-        print("DEBUG: var1 = ", var1)
+        # print("DEBUG: var1 = ", var1)
         var2 = var1 * var1 * self._presscal[5] / 32768.0
-        print("DEBUG: var2 = ", var2)
+        # print("DEBUG: var2 = ", var2)
         var2 = var2 + var1 * self._presscal[4] * 2.0
-        print("DEBUG: var2 = ", var2)
+        # print("DEBUG: var2 = ", var2)
         var2 = var2/4.0 + self._presscal[3] * 65536.0
-        print("DEBUG: var2 = ", var2)
+        # print("DEBUG: var2 = ", var2)
         var1 = (self._presscal[2] * var1 * var1 / 534288.0 +
                 self._presscal[1] * var1) / 534288.0
-        print("DEBUG: var1 = ", var1)
+        # print("DEBUG: var1 = ", var1)
         var1 = (1.0 + var1/32768.0) * self._presscal[0]
-        print("DEBUG: var1 = ", var1)
+        # print("DEBUG: var1 = ", var1)
         if var1 == 0.0:
             return 0
         p = 1048576.0 - UP
-        print("DEBUG: p = ", p)
+        # print("DEBUG: p = ", p)
         p = ((p - var2 / 4096.0) * 6250) / var1
-        print("DEBUG: p = ", p)
+        # print("DEBUG: p = ", p)
         var1 = self._presscal[8] * p * p / 2147483648.0
-        print("DEBUG: var1 = ", var1)
+        # print("DEBUG: var1 = ", var1)
         var2 = p * self._presscal[7] / 32768.0
-        print("DEBUG: var2 = ", var2)
+        # print("DEBUG: var2 = ", var2)
         p = p + (var1 + var2 + self._presscal[6]) / 16.0
         self._press = p
-        print("DEBUG: self._press = ", self._press)
+        # print("DEBUG: self._press = ", self._press)
         return (self._temp, self._press)
