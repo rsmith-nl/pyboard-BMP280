@@ -1,0 +1,70 @@
+MicroPython v1.9.3-521-gd6cf5c67 on 2018-04-07; PYBv1.1 with STM32F405RG
+Type "help()" for more information.
+>>> 
+>>> import BMP280
+>>> 
+>>> s = BMP280.BMP280_I2C(2)
+>>> 
+>>> s.update()
+DEBUG: UT =  524288.0
+DEBUG: var1 =  122009.4
+DEBUG: var2 =  17.77221
+DEBUG: t_fine =  122027
+DEBUG: self._temp =  23.8334
+DEBUG: UP =  524288.0
+DEBUG: var1 =  -2986.5
+DEBUG: var2 =  -1905.343
+DEBUG: var2 =  989612.7
+DEBUG: var2 =  4.326539e+08
+DEBUG: var1 =  59.63578
+DEBUG: var1 =  37175.53
+DEBUG: p =  524288.0
+DEBUG: p =  70385.6
+DEBUG: var1 =  13841.69
+DEBUG: var2 =  -31360.77
+DEBUG: self._press =  70259.4
+
+>>> (s.temperature, s.pressure)
+(23.8334, 70259.4)
+
+De temperatuur is wat te hoog, denk ik. De druk is véél te laag...
+
+>>> s._tempcal
+[27884.0, 25581.0, 50.0]
+>>> s._presscal
+[37108.0, -10652.0, 3024.0, 6598.0, -166.0, -7.0, 15500.0, -14600.0, 6000.0]
+
+Ruwe register data voor de coëfficiënten.
+
+>>> s._i2c.mem_read(24, s._address, BMP280.REG_COMP)
+b'\xecl\xedc2\x00\xf4\x90d\xd6\xd0\x0b\xc6\x19Z\xff\xf9\xff\x8c<\xf8\xc6p\x17'
+
+>>> data = s._i2c.mem_read(24, s._address, BMP280.REG_COMP)
+>>> comp = unpack('<HhhHhhhhhhhh', data)
+>>> comp
+(27884, 25581, 50, 37108, -10652, 3024, 6598, -166, -7, 15500, -14600, 6000)
+
+Na een tijdje ging de druk omhoog, en de temperatuur omlaag:
+
+>>> s.update()
+DEBUG: UT =  522528.0
+DEBUG: var1 =  119261.4
+DEBUG: var2 =  16.98068
+DEBUG: t_fine =  119278
+DEBUG: self._temp =  23.29648
+DEBUG: UP =  346784.0
+DEBUG: var1 =  -4361.0
+DEBUG: var2 =  -4062.751
+DEBUG: var2 =  1443789.0
+DEBUG: var2 =  4.327675e+08
+DEBUG: var1 =  87.14591
+DEBUG: var1 =  37206.69
+DEBUG: p =  701792.0
+DEBUG: p =  100139.2
+DEBUG: var1 =  28017.53
+DEBUG: var2 =  -44617.7
+DEBUG: self._press =  100070.5
+>>> (s.temperature, s.pressure)
+(23.29648, 100070.5)
+
+Waarschijnlijk heeft de sensor een burn-in tijd nodig?
