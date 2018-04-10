@@ -1,10 +1,13 @@
 # file: BMP280.py
 # vim:fileencoding=utf-8:fdm=marker:ft=python
-# Using the Adafruit BMP280 breakout board with micropython
 #
 # Author: R.F. Smith <rsmith@xs4all.nl>
 # Created: 2018-04-08 22:38:40 +0200
-# Last modified: 2018-04-10 11:25:30 +0200
+# Last modified: 2018-04-10 14:38:43 +0200
+#
+# To the extent possible under law, R.F. Smith has waived all copyright and
+# related or neighboring rights to BMP280.py. This work is published
+# from the Netherlands. See http://creativecommons.org/publicdomain/zero/1.0/
 
 from utime import sleep_ms
 from ustruct import unpack
@@ -26,6 +29,7 @@ REG_COMP = const(0x88)  # Start of compensation parameters.
 
 
 class BMP280_I2C:
+    """Use the BMP280 over Ii²C using a pyboard."""
 
     def __init__(self, bus, address=0x76):
         """Create an BMP280_I2C object.
@@ -68,7 +72,6 @@ class BMP280_I2C:
     def mbar(self):
         """The last measured pressure in mbar"""
         return 1000*(self._press/1.013e5)
-
 
     def read(self):
         """Read the sensor data from the chip."""
