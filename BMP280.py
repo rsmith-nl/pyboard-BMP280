@@ -4,7 +4,7 @@
 #
 # Author: R.F. Smith <rsmith@xs4all.nl>
 # Created: 2018-04-08 22:38:40 +0200
-# Last modified: 2018-04-09 22:39:08 +0200
+# Last modified: 2018-04-10 11:25:30 +0200
 
 from utime import sleep_ms
 from ustruct import unpack
@@ -56,11 +56,19 @@ class BMP280_I2C:
 
     @property
     def temperature(self):
+        """The last measured temperature in °C."""
         return self._temp
 
     @property
     def pressure(self):
+        """The last measured pressure in Pascal."""
         return self._press
+
+    @property
+    def mbar(self):
+        """The last measured pressure in mbar"""
+        return 1000*(self._press/1.013e5)
+
 
     def read(self):
         """Read the sensor data from the chip."""
