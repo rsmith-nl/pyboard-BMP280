@@ -2,13 +2,10 @@
 # file: listener.py
 # vim:fileencoding=utf-8:fdm=marker:ft=python
 #
-# Author: R.F. Smith <rsmith@xs4all.nl>
-# Created: 2018-04-10 18:10:29 +0200
-# Last modified: 2018-04-11 12:14:14 +0200
-#
-# To the extent possible under law, R.F. Smith has waived all copyright and
-# related or neighboring rights to listener.py. This work is published
-# from the Netherlands. See http://creativecommons.org/publicdomain/zero/1.0/
+# Copyright © 2018 R.F. Smith <rsmith@xs4all.nl>.
+# SPDX-License-Identifier: MIT
+# Created: 2018-04-10T18:10:29+0200
+# Last modified: 2018-04-17T00:26:15+0200
 """
 Program to receive data from the BMP280 sensor connected to the pyboard,
 which is running the main-query.py program.

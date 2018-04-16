@@ -1,13 +1,10 @@
-# file: query.py
+# file: main-query.py
 # vim:fileencoding=utf-8:fdm=marker:ft=python
 #
-# Author: R.F. Smith <rsmith@xs4all.nl>
-# Created: 2018-04-10 14:39:42 +0200
-# Last modified: 2018-04-11 12:07:31 +0200
-#
-# To the extent possible under law, R.F. Smith has waived all copyright and
-# related or neighboring rights to main.py. This work is published
-# from the Netherlands. See http://creativecommons.org/publicdomain/zero/1.0/
+# Copyright © 2018 R.F. Smith <rsmith@xs4all.nl>.
+# SPDX-License-Identifier: MIT
+# Created: 2018-04-10T17:33:01+0200
+# Last modified: 2018-04-17T00:28:44+0200
 """
 Create a BMP280 sensor object. When a line containing “?” is input over the
 serial connection, query the sensor and report the result. (That goed out over

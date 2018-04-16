@@ -5,7 +5,7 @@ Using the Adafruit BMP280 with the pyboard
 :tags: pyboard, BMP280
 :author: Roland Smith
 
-.. Last modified: 2018-04-11 12:57:46 +0200
+.. Last modified: 2018-04-17T00:27:54+0200
 
 Introduction
 ------------
@@ -72,7 +72,7 @@ file.
 License
 -------
 
-The code is in the public domain (CC0). See LICENSE.txt
+MIT. See LICENSE.txt
 
 .. PELICAN_END_SUMMARY
 
