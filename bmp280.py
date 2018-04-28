@@ -4,7 +4,7 @@
 # Copyright © 2018 R.F. Smith <rsmith@xs4all.nl>.
 # SPDX-License-Identifier: MIT
 # Created: 2018-04-08T22:38:40+0200
-# Last modified: 2018-04-17T00:27:02+0200
+# Last modified: 2018-04-29T01:26:59+0200
 
 from utime import sleep_ms
 from ustruct import unpack
@@ -25,11 +25,11 @@ REG_COMP = const(0x88)  # Start of compensation parameters.
 # All registers 88 - A1 should be read in one go.
 
 
-class BMP280_I2C:
-    """Use the BMP280 over Ii²C using a pyboard."""
+class Bmp280_i2c:
+    """Use the BMP280 over I²C using a pyboard."""
 
     def __init__(self, bus, address=0x76):
-        """Create an BMP280_I2C object.
+        """Create an Bmp280_i2c object.
 
         Arguments:
             bus: which connections we use.
