@@ -19,7 +19,7 @@ s = Bmp280_i2c(2)  # Assuming the sensor is wired to the 2nd I²C bus.
 delay(60000)  # Wait a minute after startup; give the sensor time to settle.
 
 while True:
-    if '?' in input():
+    if "?" in input():
         # Read and print the values.
         rv = s.read()
-        print('{:.1f} °C, {:.0f} mbar'.format(s.temperature, s.mbar))
+        print("{:.1f} °C, {:.0f} mbar".format(s.temperature, s.mbar))

@@ -41,7 +41,7 @@ class Bmp280_i2c:
         self._press = None
         # Read the compensation coefficients.
         data = self._i2c.mem_read(24, self._address, REG_COMP)
-        comp = unpack('<HhhHhhhhhhhh', data)
+        comp = unpack("<HhhHhhhhhhhh", data)
         comp = [float(j) for j in comp]
         self._tempcal = comp[:3]
         self._presscal = comp[3:]
@@ -68,7 +68,7 @@ class Bmp280_i2c:
     @property
     def mbar(self):
         """The last measured pressure in mbar"""
-        return 1000*(self._press/1.013e5)
+        return 1000 * (self._press / 1.013e5)
 
     def read(self):
         """Read the sensor data from the chip."""
@@ -82,29 +82,32 @@ class Bmp280_i2c:
         # print("DEBUG: UT = ", UT)
         var1 = (UT / 16384.0 - self._tempcal[0] / 1024.0) * self._tempcal[1]
         # print("DEBUG: var1 = ", var1)
-        var2 = ((UT / 131072.0 - self._tempcal[0] / 8192.0) * (
-            UT / 131072.0 - self._tempcal[0] / 8192.0)) * self._tempcal[2]
+        var2 = (
+            (UT / 131072.0 - self._tempcal[0] / 8192.0)
+            * (UT / 131072.0 - self._tempcal[0] / 8192.0)
+        ) * self._tempcal[2]
         # print("DEBUG: var2 = ", var2)
-        t_fine = int(var1+var2)
+        t_fine = int(var1 + var2)
         # print("DEBUG: t_fine = ", t_fine)
-        self._temp = t_fine/5120.0
+        self._temp = t_fine / 5120.0
         # print("DEBUG: self._temp = ", self._temp)
         # Pressure
         pressdata = self._i2c.mem_read(3, self._address, REG_PRESS)
         UP = float((pressdata[0] << 16 | pressdata[1] << 8 | tempdata[2]) >> 4)
         # print("DEBUG: UP = ", UP)
-        var1 = t_fine/2.0 - 64000.0
+        var1 = t_fine / 2.0 - 64000.0
         # print("DEBUG: var1 = ", var1)
         var2 = var1 * var1 * self._presscal[5] / 32768.0
         # print("DEBUG: var2 = ", var2)
         var2 = var2 + var1 * self._presscal[4] * 2.0
         # print("DEBUG: var2 = ", var2)
-        var2 = var2/4.0 + self._presscal[3] * 65536.0
+        var2 = var2 / 4.0 + self._presscal[3] * 65536.0
         # print("DEBUG: var2 = ", var2)
-        var1 = (self._presscal[2] * var1 * var1 / 534288.0 +
-                self._presscal[1] * var1) / 534288.0
+        var1 = (
+            self._presscal[2] * var1 * var1 / 534288.0 + self._presscal[1] * var1
+        ) / 534288.0
         # print("DEBUG: var1 = ", var1)
-        var1 = (1.0 + var1/32768.0) * self._presscal[0]
+        var1 = (1.0 + var1 / 32768.0) * self._presscal[0]
         # print("DEBUG: var1 = ", var1)
         if var1 == 0.0:
             return 0

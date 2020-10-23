@@ -22,20 +22,20 @@ def nexthour():
 
 
 # assuming the pyboard connects to /dev/cuaU0
-pyboard = serial.Serial('/dev/cuaU0', 115200, timeout=1)
-datafile = open('/tmp/monitor.d', 'w')
+pyboard = serial.Serial("/dev/cuaU0", 115200, timeout=1)
+datafile = open("/tmp/monitor.d", "w")
 
-now = datetime.utcnow().strftime('%FT%TZ')
-datafile.write('# BMP280 data.\n# Started monitoring at {}.\n'.format(now))
+now = datetime.utcnow().strftime("%FT%TZ")
+datafile.write("# BMP280 data.\n# Started monitoring at {}.\n".format(now))
 datafile.flush()
 
 while True:
     nexthour()
-    now = datetime.utcnow().strftime('%FT%TZ')
+    now = datetime.utcnow().strftime("%FT%TZ")
     # print('Datetime is', now)
-    pyboard.write('?\r\n'.encode('utf-8'))
-    pyboard.readline().decode('utf-8')  # read and discard echo
-    degC, _, mbar, _ = pyboard.readline().decode('utf-8').split()
+    pyboard.write("?\r\n".encode("utf-8"))
+    pyboard.readline().decode("utf-8")  # read and discard echo
+    degC, _, mbar, _ = pyboard.readline().decode("utf-8").split()
     # print('Received {} °C {} mbar'.format(degC, mbar))
-    datafile.write('{} {} {}\n'.format(now, degC, mbar))
+    datafile.write("{} {} {}\n".format(now, degC, mbar))
     datafile.flush()

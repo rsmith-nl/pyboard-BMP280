@@ -16,12 +16,12 @@ from bmp280 import Bmp280_i2c
 
 s = Bmp280_i2c(2)  # Assuming the chip is wired to the 2nd I²C bus.
 
-print('Please wait one minute for the sensor to settle...')
+print("Please wait one minute for the sensor to settle...")
 delay(60000)
-print('Ready')
+print("Ready")
 
 while True:
     # Read and print the values, then wait.
     rv = s.read()
-    print('{:.1f} °C, {:.0f} mbar'.format(s.temperature, s.mbar))
+    print("{:.1f} °C, {:.0f} mbar".format(s.temperature, s.mbar))
     delay(60000)
